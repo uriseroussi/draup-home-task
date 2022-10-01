@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MeshProps } from '@react-three/fiber/';
-import { useLoader } from '@react-three/fiber/';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
 interface props extends MeshProps {
@@ -20,10 +19,11 @@ const Cube: React.FC<props> = (props) => {
   }, []);
 
   // use image as texture
-  const texture = useLoader(
-    TextureLoader,
+  const loader = new TextureLoader();
+  const texture = loader.load(
     'https://i.seadn.io/gae/D-R6XnX1zkCAr7UZwEzNSK8PDhw5B4pjplqeSb9iZQLE92kXGwjawWTJQEeidmsMTZpVpt1qkzsyWX7flysoFb_LFWw1CYal__7lJA'
   );
+
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
