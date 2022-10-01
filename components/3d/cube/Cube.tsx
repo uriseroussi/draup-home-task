@@ -24,8 +24,6 @@ const Cube: React.FC<props> = (props) => {
     TextureLoader,
     'https://i.seadn.io/gae/D-R6XnX1zkCAr7UZwEzNSK8PDhw5B4pjplqeSb9iZQLE92kXGwjawWTJQEeidmsMTZpVpt1qkzsyWX7flysoFb_LFWw1CYal__7lJA'
   );
-  console.log(texture);
-  useEffect(() => {}, [texture]);
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
