@@ -20,6 +20,9 @@ const Cube: React.FC<props> = (props) => {
 
   // use image as texture
   const loader = new TextureLoader();
+  console.log(loader.crossOrigin);
+  loader.setCrossOrigin('');
+
   const texture = loader.load(
     'https://i.seadn.io/gae/D-R6XnX1zkCAr7UZwEzNSK8PDhw5B4pjplqeSb9iZQLE92kXGwjawWTJQEeidmsMTZpVpt1qkzsyWX7flysoFb_LFWw1CYal__7lJA'
   );
