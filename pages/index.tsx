@@ -107,29 +107,27 @@ const HomePage: NextPage = () => {
         </div>
 
         <Canvas camera={{ fov: 75, position: [0, 2, 6] }}>
-          <Suspense fallback={null}>
-            <ambientLight intensity={0.1} position={[0, 0, 0]} />
-            <spotLight position={[0, 5, 10]} intensity={0.5} />
-            <Picture
-              position={[3, 0, 0]}
-              scale={1}
-              image={selectedNft?.imageUrl!}
-            />
-            <Dress
-              position={[0, -2, 1]}
-              scale={0.033}
-              image={selectedNft?.imageUrl!}
-            />
-            <Platform position={[0, -4.5, -3]} scale={1} />
-            <Text
-              scale={[2, 3, 0]}
-              position={[2.96, -1.2, 0.4]}
-              rotation={new Euler(-0.11, -0.96, 0.13)}
-              font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
-            >
-              {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
-            </Text>
-          </Suspense>
+          <ambientLight intensity={0.1} position={[0, 0, 0]} />
+          <spotLight position={[0, 5, 10]} intensity={0.5} />
+          <Picture
+            position={[3, 0, 0]}
+            scale={1}
+            image={selectedNft?.imageUrl!}
+          />
+          <Dress
+            position={[0, -2, 1]}
+            scale={0.033}
+            image={selectedNft?.imageUrl!}
+          />
+          <Platform position={[0, -4.5, -3]} scale={1} />
+          <Text
+            scale={[2, 3, 0]}
+            position={[2.96, -1.2, 0.4]}
+            rotation={new Euler(-0.11, -0.96, 0.13)}
+            font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+          >
+            {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
+          </Text>
         </Canvas>
       </main>
     </>
