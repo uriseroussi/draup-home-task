@@ -13,6 +13,7 @@ import { NftData } from '../types/types';
 import NFTGallery from '../components/gallery/NFTGallery';
 import { Text } from '@react-three/drei';
 import Web3 from 'web3';
+import Text2D from '../components/3d/text/Text2D';
 
 const HomePage: NextPage = () => {
   const [address, setAddress] = useState<string>('');
@@ -120,14 +121,15 @@ const HomePage: NextPage = () => {
             image={selectedNft?.imageUrl!}
           />
           <Platform position={[0, -4.5, -3]} scale={1} />
-          <Text
+          {/* <Text
             scale={[2, 3, 0]}
             position={[2.96, -1.2, 0.4]}
             rotation={new Euler(-0.11, -0.96, 0.13)}
             font="Roboto-Bold.otf"
           >
             {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
-          </Text>
+          </Text> */}
+          <Text2D selectedNft={selectedNft} />
         </Canvas>
       </main>
     </>
