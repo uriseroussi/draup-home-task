@@ -5,11 +5,10 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
-    fontFamily: {
-      serif: ['serif'],
-      cursive: ['Bad Script', 'cursive'],
-      sans: ['sans-serif'],
+    extend: {
+      fontFamily: {
+        cursive: ['Bad Script', 'cursive'],
+      },
     },
     fontSize: {
       h1: '4.2rem',
