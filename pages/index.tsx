@@ -124,7 +124,7 @@ const HomePage: NextPage = () => {
             scale={[2, 3, 0]}
             position={[2.96, -1.2, 0.4]}
             rotation={new Euler(-0.11, -0.96, 0.13)}
-            font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+            font="/Raleway-Bold.ttf"
           >
             {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
           </Text>
