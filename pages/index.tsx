@@ -2,8 +2,7 @@ import { Canvas } from '@react-three/fiber/';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import React, { Suspense, useState } from 'react';
-import { Euler, SpotLight } from 'three';
-import Cube from '../components/3d/cube/Cube';
+import { Euler } from 'three';
 import Dress from '../components/3d/models/Dress';
 import Picture from '../components/3d/picture/Picture';
 import Platform from '../components/3d/platform/Platform';
@@ -12,10 +11,12 @@ import Input from '../components/input/Input';
 import axios from 'axios';
 import { NftData } from '../types/types';
 import NFTGallery from '../components/gallery/NFTGallery';
-import { OrbitControls, Stats, Text } from '@react-three/drei';
+import { Text } from '@react-three/drei';
+import Web3 from 'web3';
 
 const HomePage: NextPage = () => {
   const [address, setAddress] = useState<string>('');
+  const [errorMsg, setErrorMsg] = useState<string>('');
   const [isFetchingNfts, setIsFetchingNfts] = useState<boolean>(false);
   const [nfts, setNfts] = useState<NftData[]>([]);
   const [selectedNft, setSelectedNft] = useState<NftData>({
@@ -24,18 +25,29 @@ const HomePage: NextPage = () => {
     imageUrl: '',
   });
 
-  console.log(nfts);
-  console.log(selectedNft);
-
   const onAddressSubmitHandler = async () => {
+    setErrorMsg('');
     setIsFetchingNfts(true);
+
+    if (!Web3.utils.isAddress(address)) {
+      setErrorMsg('Invalid address');
+      setIsFetchingNfts(false);
+      return;
+    }
+
     try {
       const addressNfts = await axios.get(
         `/api/v1/index-nfts?address=${address}`
       );
+      if (!addressNfts.data.nfts) {
+        setErrorMsg('No NFTs found!');
+        setIsFetchingNfts(false);
+        return;
+      }
       setNfts(addressNfts.data.nfts);
-    } catch (err) {
+    } catch (err: any) {
       setNfts([]);
+      setErrorMsg(err.message);
       console.log(err);
     }
     setIsFetchingNfts(false);
@@ -44,7 +56,7 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>My Dress is an NFT</title>
+        <title>My Non-Fungible Garment</title>
         <meta
           name="description"
           content="a wep app to texturize garments with NFTs"
@@ -53,57 +65,72 @@ const HomePage: NextPage = () => {
       </Head>
 
       <main className="flex flex-col items-center h-[100vh]">
+        <div className="mt-[10rem] mb-[2.5rem] text-center">
+          <h1 className="text-purple-500">My Non-Fungible Garment</h1>
+          <p className="text-purple-500 ">
+            Get NFTs owned by an address and visualize them on garments
+          </p>
+        </div>
         <form
-          className="flex gap-[1rem] mt-[10rem] mb-[5rem]"
+          className="flex flex-col mb-[2.5rem] w-[52rem]"
           onSubmit={(event: React.FormEvent) => {
             event.preventDefault();
             onAddressSubmitHandler();
           }}
         >
-          <Input
-            name="address"
-            placeholder="Address"
-            type="text"
-            value={address}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setAddress(e.target.value)
-            }
-          />
-          {!isFetchingNfts && <Button>Submit</Button>}
-          {isFetchingNfts && <Button disabled>Fetching NFTs</Button>}
+          <div className="flex gap-[1rem] w-full">
+            <Input
+              className="flex-1"
+              name="address"
+              placeholder="Address"
+              type="text"
+              value={address}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setAddress(e.target.value.trim());
+                setErrorMsg('');
+              }}
+            />
+
+            {!isFetchingNfts && <Button>Submit</Button>}
+            {isFetchingNfts && <Button disabled>Fetching NFTs...</Button>}
+          </div>
+          <div className="h-[1em]">
+            <p className="text-red-600 ml-[0.5rem]">{errorMsg}</p>
+          </div>
         </form>
 
-        {nfts.length > 0 && (
-          <div>
-            <NFTGallery nfts={nfts} setSelectedNft={setSelectedNft} />
-          </div>
-        )}
+        <div className="min-h-[8rem]">
+          {nfts.length > 0 && (
+            <div>
+              <NFTGallery nfts={nfts} setSelectedNft={setSelectedNft} />
+            </div>
+          )}
+        </div>
 
         <Canvas camera={{ fov: 75, position: [0, 2, 6] }}>
           <Suspense fallback={null}>
-            <ambientLight intensity={0.5} />
-            <spotLight position={[0, 10, 5]} />
-            {/* <Cube position={[0, 0, 1]} /> */}
+            <ambientLight intensity={0.1} position={[0, 0, 0]} />
+            <spotLight position={[0, 5, 10]} intensity={0.5} />
             <Picture
-              position={[3, -1, -2]}
-              scale={1.2}
-              image={selectedNft?.imageUrl}
+              position={[3, 0, 0]}
+              scale={1}
+              image={selectedNft?.imageUrl!}
             />
             <Dress
-              position={[0, -2, 2]}
+              position={[0, -2, 1]}
               scale={0.033}
-              image={selectedNft?.imageUrl}
+              image={selectedNft?.imageUrl!}
             />
-            {/* <Platform position={[0, -0.3, 0]} /> */}
+            <Platform position={[0, -4.5, -3]} scale={1} />
             <Text
-              scale={[3, 3, 3]}
-              position={[2.8, -2.5, -2]}
-              rotation={new Euler(0, -0.8, -0.05)}
+              scale={[2, 3, 0]}
+              position={[2.96, -1.2, 0.4]}
+              rotation={new Euler(-0.11, -0.96, 0.13)}
               color="white" // default
               anchorX="center" // default
               anchorY="middle" // default
             >
-              {selectedNft.name}
+              {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
             </Text>
           </Suspense>
         </Canvas>

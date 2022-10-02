@@ -14,9 +14,9 @@ const Picture: React.FC<props> = (props) => {
   const mesh = useRef<THREE.Mesh>(null!);
 
   useEffect(() => {
-    mesh.current.rotation.x = 1.4;
-    mesh.current.rotation.y = -0.2;
-    mesh.current.rotation.z = 0.9;
+    mesh.current.rotation.x = 1.3;
+    mesh.current.rotation.y = 0;
+    mesh.current.rotation.z = 1;
   }, []);
 
   // use image as texture
@@ -28,7 +28,7 @@ const Picture: React.FC<props> = (props) => {
   return (
     <mesh {...props} ref={mesh}>
       <boxGeometry args={[2, 0.05, 2]} />
-      <meshBasicMaterial map={texture} />
+      <meshStandardMaterial map={texture} metalness={0.2} />
     </mesh>
   );
 };

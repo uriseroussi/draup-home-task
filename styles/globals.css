@@ -11,8 +11,12 @@
     @apply text-white text-base;
   }
 
+  h1 {
+    @apply text-h1 font-cursive;
+  }
+
   input {
-    @apply border-2 border-purple-500;
+    @apply border-2 border-purple-500 bg-transparent;
   }
 }
 

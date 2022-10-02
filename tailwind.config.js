@@ -6,6 +6,11 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      serif: ['serif'],
+      cursive: ['Bad Script', 'cursive'],
+      sans: ['sans-serif'],
+    },
     fontSize: {
       h1: '4.2rem',
       h2: '3.6rem',

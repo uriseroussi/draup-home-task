@@ -93,31 +93,31 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  if (req.method !== 'GET') return res.status(404);
+  if (req.method !== 'GET')
+    return res.status(403).json({ message: 'method not allowed' });
 
   const address = req.query.address!;
+  if (typeof address === 'object')
+    return res.status(400).json({ message: 'invalid request parameters' });
 
   const addressNFTs = await getNfts(address);
   if (!addressNFTs?.length)
     return res.status(200).json({ message: 'No NFTs found' });
-  console.log('<<<<<<<<<<<<<<<<ADDRESS NFTS>>>>>>>>>>>>>>>>>');
-  console.log(addressNFTs);
 
   const imageUrls = await getNftImages(addressNFTs);
   if (!imageUrls?.length)
     return res.status(200).json({ message: 'No NFTs found' });
-  console.log('<<<<<<<<<<<<<<<<NFT IMAGES>>>>>>>>>>>>>>>>>');
-  console.log(imageUrls);
 
-  console.log(addressNFTs.length, imageUrls.length);
-
-  imageUrls.forEach((nft, index) => {
-    nft.contractAddress = addressNFTs[index].contractAddress;
-    nft.tokenId = addressNFTs[index].tokenId;
-  });
+  // hacky way to deal with discrepencies and get only nfts with images
+  imageUrls
+    .filter((nft) => nft.imageUrl)
+    .forEach((nft, index) => {
+      nft.contractAddress = addressNFTs[index].contractAddress;
+      nft.tokenId = addressNFTs[index].tokenId;
+    });
 
   res.status(200).json({
-    nfts: imageUrls,
+    nfts: imageUrls.filter((nft) => nft.imageUrl),
     message: 'OK',
   });
 }
