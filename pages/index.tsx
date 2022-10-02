@@ -11,7 +11,7 @@ import Input from '../components/input/Input';
 import axios from 'axios';
 import { NftData } from '../types/types';
 import NFTGallery from '../components/gallery/NFTGallery';
-// import { Text } from '@react-three/drei';
+import { Text, Text3D } from '@react-three/drei';
 import Web3 from 'web3';
 
 const HomePage: NextPage = () => {
@@ -61,7 +61,6 @@ const HomePage: NextPage = () => {
           name="description"
           content="a wep app to texturize garments with NFTs"
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="flex flex-col items-center h-[100vh]">
@@ -122,16 +121,14 @@ const HomePage: NextPage = () => {
               image={selectedNft?.imageUrl!}
             />
             <Platform position={[0, -4.5, -3]} scale={1} />
-            {/* <Text
+            <Text
               scale={[2, 3, 0]}
               position={[2.96, -1.2, 0.4]}
               rotation={new Euler(-0.11, -0.96, 0.13)}
-              color="white" // default
-              anchorX="center" // default
-              anchorY="middle" // default
+              font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
             >
               {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
-            </Text> */}
+            </Text>
           </Suspense>
         </Canvas>
       </main>
