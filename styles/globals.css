@@ -2,8 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-#__next {
-  min-width: 100vw;
-  min-height: 100vh;
-  background-color: black;
+@layer base {
+  html {
+    @apply text-[62.5%] bg-black;
+  }
+
+  body {
+    @apply text-white text-base;
+  }
+
+  input {
+    @apply border-2 border-purple-500;
+  }
+}
+
+@layer components {
+  .button {
+    @apply text-base border-2 border-purple-500 hover:bg-purple-800 px-[2rem] py-[1rem] overflow-hidden relative rounded-xl transition-all;
+  }
+
+  .ripple {
+    @apply bg-white absolute rounded-full translate-x-[50%] translate-y-[50%] mix-blend-screen w-[0.25em] h-[0.25em] z-50;
+    animation: ripple 750ms ease-out forwards;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0.5;
+    transform: translate(-100%, -100%);
+  }
+  80% {
+    transform: translate(-100%, -100%) scale(50);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-100%, -100%) scale(50);
+  }
 }
