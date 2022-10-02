@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber/';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import React, { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 import { Euler } from 'three';
 import Dress from '../components/3d/models/Dress';
 import Picture from '../components/3d/picture/Picture';
@@ -11,7 +11,7 @@ import Input from '../components/input/Input';
 import axios from 'axios';
 import { NftData } from '../types/types';
 import NFTGallery from '../components/gallery/NFTGallery';
-import { Text, Text3D } from '@react-three/drei';
+import { Text } from '@react-three/drei';
 import Web3 from 'web3';
 
 const HomePage: NextPage = () => {
@@ -124,7 +124,7 @@ const HomePage: NextPage = () => {
             scale={[2, 3, 0]}
             position={[2.96, -1.2, 0.4]}
             rotation={new Euler(-0.11, -0.96, 0.13)}
-            font="/Raleway-Bold.ttf"
+            font="Raleway-Bold.ttf"
           >
             {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
           </Text>
