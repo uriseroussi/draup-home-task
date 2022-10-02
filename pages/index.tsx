@@ -11,9 +11,8 @@ import Input from '../components/input/Input';
 import axios from 'axios';
 import { NftData } from '../types/types';
 import NFTGallery from '../components/gallery/NFTGallery';
-import { Text } from '@react-three/drei';
+import { Center, Text3D } from '@react-three/drei';
 import Web3 from 'web3';
-import Text2D from '../components/3d/text/Text2D';
 
 const HomePage: NextPage = () => {
   const [address, setAddress] = useState<string>('');
@@ -107,30 +106,33 @@ const HomePage: NextPage = () => {
           )}
         </div>
 
-        <Canvas camera={{ fov: 75, position: [0, 2, 6] }}>
-          <ambientLight intensity={0.1} position={[0, 0, 0]} />
-          <spotLight position={[0, 5, 10]} intensity={0.5} />
-          <Picture
-            position={[3, 0, 0]}
-            scale={1}
-            image={selectedNft?.imageUrl!}
-          />
-          <Dress
-            position={[0, -2, 1]}
-            scale={0.033}
-            image={selectedNft?.imageUrl!}
-          />
-          <Platform position={[0, -4.5, -3]} scale={1} />
-          {/* <Text
-            scale={[2, 3, 0]}
-            position={[2.96, -1.2, 0.4]}
-            rotation={new Euler(-0.11, -0.96, 0.13)}
-            font="Roboto-Bold.otf"
-          >
-            {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
-          </Text> */}
-          <Text2D selectedNft={selectedNft} />
-        </Canvas>
+        <div className="relative w-full h-full">
+          <Canvas camera={{ fov: 75, position: [0, 2, 6] }}>
+            <ambientLight intensity={0.1} position={[0, 0, 0]} />
+            <spotLight position={[0, 5, 10]} intensity={0.5} />
+            <Picture
+              position={[3, 0, 0]}
+              scale={1}
+              image={selectedNft?.imageUrl!}
+            />
+            <Dress
+              position={[0, -2, 1]}
+              scale={0.033}
+              image={selectedNft?.imageUrl!}
+            />
+            <Platform position={[0, -4.5, -3]} scale={1} />
+            <Center position={[2.8, -1, 0.7]}>
+              <Text3D
+                font={'/fonts/helvetiker_regular.typeface.json'}
+                rotation={new Euler(-0.11, -0.92, 0.13)}
+                scale={[0.13, 0.25, 0]}
+              >
+                {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
+                <meshBasicMaterial color={0xffffff} />
+              </Text3D>
+            </Center>
+          </Canvas>
+        </div>
       </main>
     </>
   );

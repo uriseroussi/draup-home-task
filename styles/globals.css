@@ -1,3 +1,10 @@
+@font-face {
+  font-family: Roboto;
+  src: url('/Roboto-Bold.otf');
+  format: ('otf');
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,6 +36,10 @@
     @apply bg-white absolute rounded-full translate-x-[50%] translate-y-[50%] mix-blend-screen w-[0.25em] h-[0.25em] z-50;
     animation: ripple 750ms ease-out forwards;
   }
+}
+
+.perspective {
+  perspective: 600px;
 }
 
 @keyframes ripple {
