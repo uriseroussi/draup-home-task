@@ -20,7 +20,7 @@ export default function Document() {
         <link
           href="https://fonts.googleapis.com/css2?family=Bad+Script&display=swap"
           rel="stylesheet"
-        />
+        ></link>
 
         {/* FAVICON */}
         <link rel="icon" href="/favicon.png" />
