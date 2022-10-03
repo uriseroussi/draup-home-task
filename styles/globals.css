@@ -11,7 +11,7 @@
 
 @layer base {
   html {
-    @apply text-[62.5%] bg-black;
+    @apply text-[50%] laptop:text-[62.5%] bg-black;
   }
 
   body {

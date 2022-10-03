@@ -63,21 +63,23 @@ const HomePage: NextPage = () => {
         />
       </Head>
 
-      <main className="flex flex-col items-center h-[100vh]">
-        <div className="mt-[10rem] mb-[2.5rem] text-center">
-          <h1 className="text-purple-500">My Non-Fungible Garment</h1>
-          <p className="text-purple-500 ">
+      <main className="flex flex-col items-center h-[100vh] w-[90%] tablet:w-full m-auto">
+        <div className="mt-[2.5rem] phone:mt-[5rem] laptop:mt-[10rem] mb-[2.5rem] text-center">
+          <h1 className="text-purple-500 text-[2.6rem] phone:text-h1">
+            My Non-Fungible Garment
+          </h1>
+          <p className="text-purple-500 max-w-[30rem] phone:max-w-full">
             Get NFTs owned by an address and visualize them on garments
           </p>
         </div>
         <form
-          className="flex flex-col mb-[2.5rem] w-[52rem]"
+          className="flex flex-col mb-[2.5rem] w-[90%] tablet:w-[52rem]"
           onSubmit={(event: React.FormEvent) => {
             event.preventDefault();
             onAddressSubmitHandler();
           }}
         >
-          <div className="flex gap-[1rem] w-full">
+          <div className="flex tablet:flex-row flex-col gap-[1rem] w-full">
             <Input
               className="flex-1"
               name="address"
@@ -106,33 +108,31 @@ const HomePage: NextPage = () => {
           )}
         </div>
 
-        <div className="relative w-full h-full">
-          <Canvas camera={{ fov: 75, position: [0, 2, 6] }}>
-            <ambientLight intensity={0.1} position={[0, 0, 0]} />
-            <spotLight position={[0, 5, 10]} intensity={0.5} />
-            <Picture
-              position={[3, 0, 0]}
-              scale={1}
-              image={selectedNft?.imageUrl!}
-            />
-            <Dress
-              position={[0, -2, 1]}
-              scale={0.033}
-              image={selectedNft?.imageUrl!}
-            />
-            <Platform position={[0, -4.5, -3]} scale={1} />
-            <Center position={[2.8, -1, 0.7]}>
-              <Text3D
-                font={'/fonts/helvetiker_regular.typeface.json'}
-                rotation={new Euler(-0.11, -0.92, 0.13)}
-                scale={[0.13, 0.25, 0]}
-              >
-                {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
-                <meshBasicMaterial color={0xffffff} />
-              </Text3D>
-            </Center>
-          </Canvas>
-        </div>
+        <Canvas camera={{ fov: 75, position: [0, 2, 6] }}>
+          <ambientLight intensity={0.1} position={[0, 0, 0]} />
+          <spotLight position={[0, 5, 10]} intensity={0.5} />
+          <Picture
+            position={[3, 0, 0]}
+            scale={1}
+            image={selectedNft?.imageUrl!}
+          />
+          <Dress
+            position={[0, -2, 1]}
+            scale={0.033}
+            image={selectedNft?.imageUrl!}
+          />
+          <Platform position={[0, -4.5, -3]} scale={1} />
+          <Center position={[2.8, -1, 0.7]}>
+            <Text3D
+              font={'/fonts/optimer_bold.typeface.json'}
+              rotation={new Euler(-0.11, -0.92, 0.13)}
+              scale={[0.13, 0.25, 0]}
+            >
+              {selectedNft.name ? selectedNft.name : 'Bored Ape Yacht Club'}
+              <meshBasicMaterial color={0xffffff} />
+            </Text3D>
+          </Center>
+        </Canvas>
       </main>
     </>
   );

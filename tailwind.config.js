@@ -19,6 +19,12 @@ module.exports = {
       base: '1.8rem',
       inherit: 'inherit',
     },
+    screens: {
+      phone: '26.5em',
+      tablet: '37.5em',
+      laptop: '64em',
+      desktop: '90em',
+    },
   },
   plugins: [],
 };
